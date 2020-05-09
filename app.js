@@ -6,7 +6,15 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'name',
-            message: 'what is your name?'
+            message: 'what is your name? (required)',
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('please enter  your name');
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
@@ -14,9 +22,16 @@ const promptUser = () => {
             message: 'please enter your github username'
         },
         {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'would you like to enter someinformation about yourself for an "about section"?',
+            default: true
+        },
+        {
             type: 'input',
             name: 'about',
-            message: 'provide some information about yourself:'
+            message: 'provide some information about yourself:',
+            when: ({ confirmAbout }) => confirmAbout
         }
     ]);
 };
@@ -82,7 +97,7 @@ const promptProject = portfolioData => {
 
 
 
-  
+
 //   .then(projectData => {
 //     portfolioData.projects.push(projectData);
 //     if (projectData.confirmAddProject) {
